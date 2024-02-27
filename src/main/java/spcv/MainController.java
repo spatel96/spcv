@@ -1,6 +1,7 @@
 package com.spcv;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.views.View;
@@ -13,15 +14,22 @@ import static io.micronaut.http.MediaType.TEXT_HTML;
 @Controller 
 class MainController {
 
-    private final MessageService messageService;
-
-    public MainController(MessageService messageService) { 
-        this.messageService = messageService;
+    @View("index.html")
+    @Get(value = "/index.html", produces = TEXT_HTML)
+    Map<String, String> index( String name) {
+        return Map.of("message", "hello");
     }
 
-    @View("index.html") 
-    @Get(value = "/hello/{name}", produces = TEXT_HTML) 
-    Map<String, String> index(@NonNull @NotBlank String name) { 
-        return Map.of("message", messageService.sayHello(name));
+    @Get("/spcv")
+    @View("index.html") // Points to the Thymeleaf template name without the file extension
+    public HttpResponse indexSpcv() {
+        return HttpResponse.ok();
     }
+
+    @Get("/")
+    @View("index.html") // Points to the Thymeleaf template name without the file extension
+    public HttpResponse indexRoot() {
+        return HttpResponse.ok();
+    }
+
 }
