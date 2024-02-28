@@ -1,0 +1,24 @@
+# Ignore Gradle build directories
+.gradle/
+
+# Ignore build output directories
+build/
+
+# Ignore Git-related files
+.git/
+.gitignore
+
+# Ignore IDE-related files
+.idea/
+
+# Ignore temporary and backup files
+*.swp
+*~
+*.log
+*.bak
+
+# Ignore unnecessary project files
+.DS_Store
+
+# Ignore test-related files (if applicable)
+test-output/
