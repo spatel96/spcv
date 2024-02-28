@@ -1,18 +1,23 @@
-# Use a base image with GraalVM 21
+FROM gradle:jdk21 AS cache
+WORKDIR /app
+ENV GRADLE_USER_HOME /cache
+COPY build.gradle gradle.properties settings.gradle ./
+RUN gradle --no-daemon build --stacktrace
+
+FROM gradle:jdk21 AS builder
+WORKDIR /app
+COPY --from=cache /cache /home/gradle/.gradle
+COPY build.gradle gradle.properties settings.gradle gradlew ./
+COPY src/ src/
+RUN gradle --no-daemon build --stacktrace
+
+# Stage 2: Run Stage
 FROM ghcr.io/graalvm/jdk-community:21
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Micronaut application files into the container
-COPY . /app
-
-# Build the Micronaut application
-
-# trunk-ignore(trivy/DS019)
-RUN microdnf clean all; microdnf install findutils
-
-RUN ./gradlew build
+# Copy only the built artifacts from the previous stage
+COPY --from=builder /app/build/libs/. /app/.
 
 # Expose the port that your Micronaut application is running on
 EXPOSE 8080
@@ -29,4 +34,4 @@ USER spcv
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "ping localhost:8080 -c 1" ]" ]
 
 # Specify the command to run your application when the container starts
-CMD ["./gradlew", "run"]
+CMD ["java", "-jar", "default-0.2-all.jar"]
