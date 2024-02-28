@@ -3,6 +3,7 @@ plugins {
     id("io.micronaut.application") version "4.3.3"
     id("com.diffplug.spotless") version "6.23.3"
     id("io.micronaut.aot") version "4.3.3"
+    id("io.micronaut.crac") version "4.3.3"
 }
 
 version = "0.1"
@@ -21,6 +22,7 @@ dependencies {
     implementation("io.micronaut.views:micronaut-views-fieldset")
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.micronaut.crac:micronaut-crac")
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     testImplementation("io.micronaut:micronaut-http-client")
@@ -31,8 +33,8 @@ application {
     mainClass.set("com.spcv.Application")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("17")
-    targetCompatibility = JavaVersion.toVersion("17")
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
 }
 
 

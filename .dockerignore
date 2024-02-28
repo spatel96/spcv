@@ -1,5 +1,5 @@
 # Ignore Gradle build directories
-.gradle/
+# .gradle/
 
 # Ignore build output directories
 build/

@@ -1,5 +1,5 @@
-# Use a base image with OpenJDK 17
-FROM adoptopenjdk:17-jre-hotspot
+# Use a base image with GraalVM 21
+FROM ghcr.io/graalvm/jdk-community:21
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,6 +8,10 @@ WORKDIR /app
 COPY . /app
 
 # Build the Micronaut application
+
+# trunk-ignore(trivy/DS019)
+RUN microdnf clean all; microdnf install findutils
+
 RUN ./gradlew build
 
 # Expose the port that your Micronaut application is running on
