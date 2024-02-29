@@ -74,3 +74,4 @@ crash.log
 
 # Ignore .terraform.lock.hcl files
 .terraform.lock.hcl
+.vscode/settings.json

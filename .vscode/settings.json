@@ -1,8 +1,14 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
     "cSpell.words": [
+        "Buildx",
+        "fulcio",
         "micronaut",
+        "Rekor",
+        "runtimes",
+        "sigstore",
         "spcv",
-        "Thymeleaf"
+        "Thymeleaf",
+        "trivy"
     ]
 }
