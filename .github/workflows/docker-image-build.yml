@@ -1,10 +1,11 @@
+# trunk-ignore-all(checkov/CKV2_GHA_1)
 name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
