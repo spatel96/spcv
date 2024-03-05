@@ -1,0 +1,3 @@
+bucket = "spcv-tf-state"
+prefix = "static.tfstate.d"
+impersonate_service_account = "terraform-service-account@spc-cv-sharp-griffin.iam.gserviceaccount.com"
