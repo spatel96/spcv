@@ -9,7 +9,7 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Create a Google Cloud Build Trigger.
-		buildTrigger, err := cloudbuild.NewTrigger(ctx, "myBuildTrigger", &cloudbuild.TriggerArgs{
+		buildTrigger, err := cloudbuild.NewTrigger(ctx, "spcvBuildTrigger", &cloudbuild.TriggerArgs{
 			Github: cloudbuild.TriggerGithubArgs{
 				Owner: pulumi.String("spatel96"), // Replace with your GitHub username.
 				Name:  pulumi.String("spcv"),      // Replace with your GitHub repository name.
@@ -32,7 +32,7 @@ func main() {
 					// Assuming the Cloud Build process tags the image with 'latest'.
 					Containers: cloudrun.ServiceTemplateSpecContainerArray{
 						&cloudrun.ServiceTemplateSpecContainerArgs{
-							Image: pulumi.Sprintf("gcr.io/%s/my-service:latest", ctx.Project()),
+							Image: pulumi.Sprintf("us-west1-docker.pkg.dev/spc-cv-sharp-griffin/cloud-run-source-deploy/spcv/spcv:latest"),
 						},
 					},
 				},
