@@ -10,6 +10,7 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Create a Google Cloud Build Trigger.
 		buildTrigger, err := cloudbuild.NewTrigger(ctx, "spcvBuildTrigger", &cloudbuild.TriggerArgs{
+			Name: pulumi.String("spcv-sharp-griffin"),
 			Github: cloudbuild.TriggerGithubArgs{
 				Owner: pulumi.String("spatel96"), // Replace with your GitHub username.
 				Name:  pulumi.String("spcv"),      // Replace with your GitHub repository name.
@@ -26,6 +27,7 @@ func main() {
 
 		// Create the Cloud Run service.
 		_, err = cloudrun.NewService(ctx, "spcv", &cloudrun.ServiceArgs{
+			Name: pulumi.String("spcv-sharp-griffin"),
 			Location: pulumi.String("us-west1"), // Replace with your preferred Google Cloud region.
 			Template: &cloudrun.ServiceTemplateArgs{
 				Spec: &cloudrun.ServiceTemplateSpecArgs{
