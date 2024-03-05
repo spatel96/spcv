@@ -4,7 +4,7 @@ plugins {
     id("com.diffplug.spotless") version "6.23.3"
     id("io.micronaut.aot") version "4.3.3"
     id("io.micronaut.crac") version "4.3.3"
-    id 'org.ajoberstar.grgit' version '4.0.2'
+    id 'org.ajoberstar.grgit' version '5.2.2'
 }
 
 jar {
@@ -32,6 +32,7 @@ dependencies {
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("jakarta.validation:jakarta.validation-api")
     implementation("io.micronaut.crac:micronaut-crac")
+    implementation ('io.micronaut:micronaut-management')
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     testImplementation("io.micronaut:micronaut-http-client")
@@ -42,14 +43,10 @@ application {
     mainClass.set("com.spcv.Application")
 }
 
-task setCommitId {
-    doLast {
-        ext.commitId = grgit.head().abbreviatedId
-    }
-}
-
-compileJava {
-    dependsOn setCommitId
+tasks.register("describe") {
+  doFirst {
+    println grgit.describe()
+  }
 }
 
 java {
