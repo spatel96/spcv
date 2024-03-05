@@ -1,14 +1,14 @@
 steps:
   # Build the Docker image
   - name: gcr.io/cloud-builders/docker
-    args: [build, -t, $_IMAGE_NAME, .]
+    args: [build, -t, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME, .]
 
   # Push the Docker image with latest tag
   - name: gcr.io/cloud-builders/docker
-    args: [tag, $_IMAGE_NAME, $_IMAGE_NAME:latest]
+    args: [tag, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:latest]
 
   - name: gcr.io/cloud-builders/docker
-    args: [push, $_IMAGE_NAME:latest]
+    args: [push, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:latest]
 
   # Get the commit SHA
   - name: gcr.io/cloud-builders/git
@@ -17,12 +17,12 @@ steps:
 
   # Push the Docker image with commit SHA tag
   - name: gcr.io/cloud-builders/docker
-    args: [tag, $_IMAGE_NAME, $_IMAGE_NAME:$COMMIT_SHA]
+    args: [tag, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA]
     env:
       - COMMIT_SHA=$PROJECT_ID/spcv:$(cat /workspace/get_commit_sha/output)
 
   - name: gcr.io/cloud-builders/docker
-    args: [push, $_IMAGE_NAME:$COMMIT_SHA]
+    args: [push, $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA]
 
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     args:
@@ -32,14 +32,14 @@ steps:
       - $_SERVICE_NAME
       - --platform=managed
       - >-
-        --image=$_IMAGE_NAME:$COMMIT_SHA
+        --image=$_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID
       - --region=$_DEPLOY_REGION
       - --quiet
     id: Deploy
     entrypoint: gcloud
-images: [$_IMAGE_NAME:latest]
+images: [$_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:latest]
 
 options:
   substitutionOption: ALLOW_LOOSE
@@ -49,7 +49,6 @@ substitutions:
   _TRIGGER_ID: 8007e5f6-2c12-4d94-91bf-3eaa7a7fe21f
   _DEPLOY_REGION: us-west1
   _AR_HOSTNAME: us-west1-docker.pkg.dev
-  _IMAGE_NAME: $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME
   _PLATFORM: managed
 tags:
   - gcp-cloud-build-deploy-cloud-run
