@@ -23,7 +23,7 @@ import io.micronaut.runtime.Micronaut;
 
 public class Application {
 
-        @ContextConfigurer
+    @ContextConfigurer
     public static class Configurer implements ApplicationContextConfigurer {
         @Override
         public void configure(@NonNull ApplicationContextBuilder builder) {

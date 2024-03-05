@@ -27,7 +27,7 @@ import static io.micronaut.http.MediaType.TEXT_HTML;
 class MainController {
 
     @View("index.html")
-    @Get(value = "/index.html", produces = TEXT_HTML)
+    @Get(value = "/hello", produces = TEXT_HTML)
     Map<String, String> index( String name) {
         return Map.of("message", "hello");
     }
@@ -43,5 +43,4 @@ class MainController {
     public HttpResponse<Object> indexRoot() {
         return HttpResponse.ok();
     }
-
 }
