@@ -26,7 +26,7 @@ func main() {
 
 		// Create the Cloud Run service.
 		_, err = cloudrun.NewService(ctx, "spcv", &cloudrun.ServiceArgs{
-			Location: pulumi.String("us-central1"), // Replace with your preferred Google Cloud region.
+			Location: pulumi.String("us-west1"), // Replace with your preferred Google Cloud region.
 			Template: &cloudrun.ServiceTemplateArgs{
 				Spec: &cloudrun.ServiceTemplateSpecArgs{
 					// Assuming the Cloud Build process tags the image with 'latest'.
