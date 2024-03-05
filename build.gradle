@@ -41,6 +41,17 @@ dependencies {
 application {
     mainClass.set("com.spcv.Application")
 }
+
+task setCommitId {
+    doLast {
+        ext.commitId = grgit.head().abbreviatedId
+    }
+}
+
+compileJava {
+    dependsOn setCommitId
+}
+
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
     targetCompatibility = JavaVersion.toVersion("21")
@@ -66,14 +77,4 @@ micronaut {
         deduceEnvironment = true
         optimizeNetty = true
     }
-}
-
-tasks.register('setCommitId') {
-    doLast {
-        project.ext.set("commitId", grgit.head().abbreviatedId)
-    }
-}
-
-tasks.withType(JavaCompile) {
-    dependsOn 'setCommitId'
 }
