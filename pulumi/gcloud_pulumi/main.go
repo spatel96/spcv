@@ -8,9 +8,19 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
+
+		// Replace 'my-service' with the name of your Cloud Run service.
+		serviceName := "spcv-sharp-griffin"
+		// Replace 'your-gcp-project' with your actual GCP project ID.
+		projectID := "spc-cv-sharp-griffin"
+		// Replace 'your-cloudrun-service-location' with the location of your Cloud Run service (e.g., 'us-central1').
+		locationID := "us-west1"
+		// The name of the custom domain to map to the Cloud Run service.
+		// customDomain := "spctechnology.co.uk"
+
 		// Create a Google Cloud Build Trigger.
 		buildTrigger, err := cloudbuild.NewTrigger(ctx, "spcvBuildTrigger", &cloudbuild.TriggerArgs{
-			Name: pulumi.String("spcv-sharp-griffin"),
+			Name: pulumi.String(serviceName),
 			Github: cloudbuild.TriggerGithubArgs{
 				Owner: pulumi.String("spatel96"), // Replace with your GitHub username.
 				Name:  pulumi.String("spcv"),      // Replace with your GitHub repository name.
@@ -24,17 +34,16 @@ func main() {
 		if err != nil {
 			return err
 		}
-
 		// Create the Cloud Run service.
 		_, err = cloudrun.NewService(ctx, "spcv", &cloudrun.ServiceArgs{
-			Name: pulumi.String("spcv-sharp-griffin"),
-			Location: pulumi.String("us-west1"), // Replace with your preferred Google Cloud region.
+			Name: pulumi.String(projectID),
+			Location: pulumi.String(locationID),
 			Template: &cloudrun.ServiceTemplateArgs{
 				Spec: &cloudrun.ServiceTemplateSpecArgs{
 					// Assuming the Cloud Build process tags the image with 'latest'.
 					Containers: cloudrun.ServiceTemplateSpecContainerArray{
 						&cloudrun.ServiceTemplateSpecContainerArgs{
-							Image: pulumi.Sprintf("us-west1-docker.pkg.dev/spc-cv-sharp-griffin/cloud-run-source-deploy/spcv/spcv:latest"),
+							Image: pulumi.Sprintf(locationID+"-docker.pkg.dev/"+projectID+"/cloud-run-source-deploy/spcv/spcv:latest"),
 						},
 					},
 				},
