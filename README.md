@@ -1,3 +1,22 @@
+# Suraj Patel CV
+- A Java, [Micronaut](https://micronaut.io/) Docker based single page application.
+- Currently trunk is being built and deployed to [Google Cloud](https://cloud.google.com/?hl=en) using [Cloudbuild](https://cloud.google.com/build?hl=en) and [Cloud Run](https://cloud.google.com/run?hl=en).
+  - All infrastructure is deployed and configured using [Pulumi](https://pulumi.com/) - Go
+- Using [Canva](https://www.canva.com/) to embed the majority of the front-end logic.
+- Branches are currently being built using GitHub Actions.
+
+# Build and run instructions
+- Clone the Github Repo locally.
+- There are three build options:
+  - Run a `docker build . -t spcv`
+    - This will build a docker container called spcv locally using a [multi-stage](https://docs.docker.com/build/building/multi-stage/) Dockerfile.
+  - Run a `docker compose up`
+    - This will build and run the spcv container already built, or will use the aforementioned Dockerfile to build and run.
+  - Run a `gradle clean build`
+    - This will assemble a shadow jar that can be executed locally (gradle run)
+- The app will be accessible on port 8080, e.g. `localhost:8080`
+
+
 ## Micronaut 4.3.3 Documentation
 
 - [User Guide](https://docs.micronaut.io/4.3.3/guide/index.html)
