@@ -4,6 +4,7 @@
         "Buildx",
         "fulcio",
         "micronaut",
+        "pulumi",
         "Rekor",
         "runtimes",
         "sigstore",
