@@ -2,6 +2,8 @@
 - A Java, [Micronaut](https://micronaut.io/) Docker based single page application.
 - Currently trunk is being built and deployed to [Google Cloud](https://cloud.google.com/?hl=en) using [Cloudbuild](https://cloud.google.com/build?hl=en) and [Cloud Run](https://cloud.google.com/run?hl=en).
   - All infrastructure is deployed and configured using [Pulumi](https://pulumi.com/) - Go
+  - Using [Pulumi Cloud](https://pulumi.com/) and GitHub Actions to preview infrastructure changes on PRs
+  - Pulumi Cloud is also setup to deploy the infrastructure stack from their dashboard using [Pulumi Deployments](https://www.pulumi.com/docs/pulumi-cloud/deployments/)
 - Using [Canva](https://www.canva.com/) to embed the majority of the front-end logic.
 - Branches are currently being built using GitHub Actions.
 
