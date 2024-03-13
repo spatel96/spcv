@@ -1,4 +1,4 @@
-name: Pulumi Preview on PR
+name: Pulumi Preview
 on:
   - pull_request
 jobs:
@@ -22,6 +22,7 @@ jobs:
         with:
           command: preview
           work-dir: pulumi/gcloud_pulumi
+          upsert: true
           stack-name: spatel96/spcv_gcloud_pulumi/prod # When using an individual account, only use stack-name.
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
