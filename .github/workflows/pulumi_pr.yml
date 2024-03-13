@@ -5,6 +5,9 @@ jobs:
   preview:
     name: Preview
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pulumi/gcloud_pulumi
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v3
