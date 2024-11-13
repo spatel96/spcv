@@ -52,6 +52,7 @@ func main() {
 		if err != nil {
 			return err
 		}
+		
 		noauth, err := organizations.LookupIAMPolicy(ctx, &organizations.LookupIAMPolicyArgs{
 			Bindings: []organizations.GetIAMPolicyBinding{
 				{
